@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CityFlow — Акимат города Семей</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* --- CORE STYLES (EGOV STYLE) --- */
+
+        :root {
+
+            --primary-blue: #005baa; /* eGov Blue */
+
+            --primary-dark: #004a8b;
+
+            --secondary-bg: #f2f4f7;
+
+            --white: #ffffff;
+
+            --text-main: #333333;
+
+            --text-light: #7f8c8d;
+
+            --ai-accent: #6c5ce7; /* Цвет AI модулей */
+
+            --success: #27ae60;
+
+            --warning: #f39c12;
+
+            --danger: #e74c3c;
+
+            --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+        }
+
+
+
+        body {
+
+            margin: 0;
+
+            font-family: 'Roboto', 'Segoe UI', sans-serif;
+
+            background-color: var(--secondary-bg);
+
+            color: var(--text-main);
+
+            -webkit-font-smoothing: antialiased;
+
+        }
+
+
+
+        /* --- HEADER & NAVIGATION --- */
+
+        header {
+
+            background: var(--white);
+
+            height: 70px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 5%;
+
+            border-bottom: 3px solid var(--primary-blue);
+
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+        }
+
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+        }
+
+
+
+        .brand img {
+
+            height: 50px;
+
+            width: auto;
+
+        }
+
+
+
+        .brand-text {
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+
+        .brand-title {
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            color: var(--primary-blue);
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.5px;
+
+        }
+
+
+
+        .brand-subtitle {
+
+            font-size: 11px;
+
+            color: var(--text-light);
+
+            font-weight: 500;
+
+        }
+
+
+
+        .user-panel {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 15px;
+
+        }
+
+
+
+        .btn-logout {
+
+            background: transparent;
+
+            border: 1px solid var(--danger);
+
+            color: var(--danger);
+
+            padding: 8px 16px;
+
+            border-radius: 4px;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            transition: all 0.2s;
+
+        }
+
+
+
+        .btn-logout:hover {
+
+            background: var(--danger);
+
+            color: var(--white);
+
+        }
+
+
+
+        /* --- LAYOUT & CARDS --- */
+
+        .main-container {
+
+            max-width: 1000px;
+
+            margin: 30px auto;
+
+            padding: 0 20px;
+
+            min-height: 80vh;
+
+        }
+
+
+
+        .card {
+
+            background: var(--white);
+
+            border-radius: 8px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+            box-shadow: var(--shadow-card);
+
+            border-top: 4px solid transparent;
+
+            animation: fadeIn 0.4s ease-in-out;
+
+        }
+
+
+
+        .card-citizen { border-top-color: var(--primary-blue); }
+
+        .card-admin { border-top-color: var(--warning); }
+
+        .card-worker { border-top-color: var(--ai-accent); }
+
+
+
+        @keyframes fadeIn {
+
+            from { opacity: 0; transform: translateY(10px); }
+
+            to { opacity: 1; transform: translateY(0); }
+
+        }
+
+
+
+        h2 { margin-top: 0; color: var(--primary-blue); font-weight: 600; }
+
+        h3 { font-size: 16px; color: var(--text-main); margin-bottom: 15px; font-weight: 600; }
+
+
+
+        /* --- FORMS --- */
+
+        .form-group { margin-bottom: 20px; }
+
+
+
+        label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size: 13px;
+
+            color: var(--text-light);
+
+            font-weight: 500;
+
+        }
+
+
+
+        input, select, textarea {
+
+            width: 100%;
+
+            padding: 12px 15px;
+
+            border: 1px solid #dce1e6;
+
+            border-radius: 4px;
+
+            font-size: 14px;
+
+            color: var(--text-main);
+
+            box-sizing: border-box;
+
+            transition: border-color 0.2s;
+
+            background: #fafafa;
+
+        }
+
+
+
+        input:focus, textarea:focus {
+
+            border-color: var(--primary-blue);
+
+            background: var(--white);
+
+            outline: none;
+
+        }
+
+
+
+        .btn-primary {
+
+            background: var(--primary-blue);
+
+            color: var(--white);
+
+            border: none;
+
+            padding: 12px 30px;
+
+            border-radius: 4px;
+
+            font-weight: 500;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            transition: background 0.2s;
+
+            width: 100%;
+
+        }
+
+
+
+        .btn-primary:hover { background: var(--primary-dark); }
+
+
+
+        /* --- AI MODULES (DECOR & FUNCTION) --- */
+
+        .ai-panel {
+
+            background: #f8f9fe;
+
+            border: 1px dashed var(--ai-accent);
+
+            border-radius: 6px;
+
+            padding: 15px;
+
+            margin-top: 15px;
+
+            position: relative;
+
+        }
+
+
+
+        .ai-badge {
+
+            position: absolute;
+
+            top: -10px;
+
+            right: 15px;
+
+            background: var(--ai-accent);
+
+            color: white;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            padding: 4px 10px;
+
+            border-radius: 12px;
+
+            box-shadow: 0 2px 5px rgba(108, 92, 231, 0.3);
+
+        }
+
+
+
+        .ai-content {
+
+            font-size: 13px;
+
+            color: #4a4a4a;
+
+            line-height: 1.5;
+
+        }
+
+
+
+        .ai-loading {
+
+            display: inline-block;
+
+            width: 10px;
+
+            height: 10px;
+
+            border: 2px solid var(--ai-accent);
+
+            border-radius: 50%;
+
+            border-top-color: transparent;
+
+            animation: spin 1s linear infinite;
+
+            margin-right: 8px;
+
+        }
+
+
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+
+
+        /* --- UTILS --- */
+
+        .hidden { display: none !important; }
+
+        
+
+        .status-badge {
+
+            padding: 5px 10px;
+
+            border-radius: 4px;
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+        }
+
+        .st-new { background: #eee; color: #777; }
+
+        .st-process { background: #fff3cd; color: #856404; }
+
+        .st-done { background: #d4edda; color: #155724; }
+
+        .st-reject { background: #f8d7da; color: #721c24; }
+
+
+
+        .req-photo {
+
+            width: 100%;
+
+            max-height: 300px;
+
+            object-fit: cover;
+
+            border-radius: 6px;
+
+            margin-top: 10px;
+
+            border: 1px solid #eee;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+<header>
+
+    <div class="brand">
+
+        <img src="logo.png" alt="CityFlow Logo" onerror="this.style.display='none'">
+
+        <div class="brand-text">
+
+            <span class="brand-title">CityFlow</span>
+
+            <span class="brand-subtitle">Цифровой Акимат г. Семей</span>
+
+        </div>
+
+    </div>
+
+    <div class="user-panel hidden" id="userPanel">
+
+        <span id="userNameDisplay" style="font-size:14px; font-weight:500; margin-right:10px;"></span>
+
+        <button class="btn-logout" onclick="App.logout()">Выйти</button>
+
+    </div>
+
+</header>
+
+
+
+<div class="main-container">
+
+
+
+    <div id="view-login" class="card">
+
+        <div style="text-align: center; margin-bottom: 30px;">
+
+            <h2 style="color:var(--text-main)">Вход в систему</h2>
+
+            <p style="color:var(--text-light)">Единая платформа городских обращений</p>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>ИИН (Идентификационный номер)</label>
+
+            <input type="text" id="login-iin" placeholder="Введите 12 цифр" maxlength="12">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>ФИО</label>
+
+            <input type="text" id="login-name" placeholder="Пример: Омаров Серик">
+
+        </div>
+
+        <button class="btn-primary" onclick="App.login()">Войти</button>
+
+        <div style="margin-top:20px; font-size:11px; color:#aaa; text-align:center;">
+
+            *Для служебного входа используйте спец. ИИН
+
+        </div>
+
+    </div>
+
+
+
+    <div id="view-citizen" class="hidden">
+
+        <div class="card card-citizen">
+
+            <h2>Подать обращение</h2>
+
+            <div class="form-group">
+
+                <label>Адрес проблемы (г. Семей)</label>
+
+                <input id="req-address" placeholder="Улица, дом, пересечение...">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Категория</label>
+
+                <select id="req-category">
+
+                    <option value="roads">Дороги и ямы</option>
+
+                    <option value="lights">Освещение</option>
+
+                    <option value="trash">Вывоз мусора</option>
+
+                    <option value="water">Водоснабжение</option>
+
+                    <option value="other">Благоустройство</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Описание</label>
+
+                <textarea id="req-desc" rows="4" placeholder="Опишите проблему подробно..."></textarea>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Фотография (Обязательно)</label>
+
+                <input type="file" id="req-photo" accept="image/*">
+
+            </div>
+
+            <button class="btn-primary" onclick="App.createRequest()">Отправить в Акимат</button>
+
+        </div>
+
+
+
+        <h3>История моих обращений</h3>
+
+        <div id="citizen-history"></div>
+
+    </div>
+
+
+
+    <div id="view-admin" class="hidden">
+
+        <div class="card card-admin">
+
+            <h2>Панель Мониторинга (Акимат)</h2>
+
+            <div style="display:flex; gap:20px; margin-bottom:20px;">
+
+                <div style="flex:1; background:#f0f8ff; padding:15px; border-radius:6px; text-align:center;">
+
+                    <b id="stat-total" style="font-size:24px; color:var(--primary-blue)">0</b><br>
+
+                    <span style="font-size:12px">Всего заявок</span>
+
+                </div>
+
+                <div style="flex:1; background:#fff5f5; padding:15px; border-radius:6px; text-align:center;">
+
+                    <b id="stat-pending" style="font-size:24px; color:var(--danger)">0</b><br>
+
+                    <span style="font-size:12px">Требуют внимания</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="admin-feed"></div>
+
+    </div>
+
+
+
+    <div id="view-worker" class="hidden">
+
+        <div class="card card-worker">
+
+            <h2>Кабинет Подрядчика</h2>
+
+            <p>Доступные наряды на выполнение работ (г. Семей)</p>
+
+        </div>
+
+        <div id="worker-feed"></div>
+
+    </div>
+
+
+
+</div>
+
+
+
+<script>
+
+    /**
+
+     * CityFlow Engine
+
+     * Developed for Semey City Administration context.
+
+     * Contains mocked AI logic and local storage persistence.
+
+     */
+
+    
+
+    const App = {
+
+        // Конфигурация ролей
+
+        roles: {
+
+            ADMIN: '999999999999',
+
+            WORKER: '222222222222'
+
+        },
+
+
+
+        // Инициализация
+
+        init: function() {
+
+            this.checkSession();
+
+        },
+
+
+
+        // --- AUTHENTICATION ---
+
+        login: function() {
+
+            const iin = document.getElementById('login-iin').value.trim();
+
+            const name = document.getElementById('login-name').value.trim();
+
+
+
+            if (iin.length !== 12) {
+
+                alert('Ошибка: ИИН должен состоять из 12 цифр.');
+
+                return;
+
+            }
+
+            if (!name) {
+
+                alert('Пожалуйста, введите ваше имя.');
+
+                return;
+
+            }
+
+
+
+            let role = 'citizen';
+
+            if (iin === this.roles.ADMIN) role = 'admin';
+
+            if (iin === this.roles.WORKER) role = 'worker';
+
+
+
+            const user = { iin, name, role };
+
+            localStorage.setItem('cityflow_user', JSON.stringify(user));
+
+            this.checkSession();
+
+        },
+
+
+
+        logout: function() {
+
+            localStorage.removeItem('cityflow_user');
+
+            location.reload();
+
+        },
+
+
+
+        checkSession: function() {
+
+            const userStr = localStorage.getItem('cityflow_user');
+
+            if (userStr) {
+
+                this.currentUser = JSON.parse(userStr);
+
+                this.renderUI();
+
+            } else {
+
+                this.showView('view-login');
+
+                document.getElementById('userPanel').classList.add('hidden');
+
+            }
+
+        },
+
+
+
+        // --- NAVIGATION ---
+
+        showView: function(viewId) {
+
+            ['view-login', 'view-citizen', 'view-admin', 'view-worker'].forEach(id => {
+
+                document.getElementById(id).classList.add('hidden');
+
+            });
+
+            document.getElementById(viewId).classList.remove('hidden');
+
+        },
+
+
+
+        renderUI: function() {
+
+            document.getElementById('userPanel').classList.remove('hidden');
+
+            document.getElementById('userNameDisplay').innerText = 
+
+                `${this.currentUser.name} (${this.getRoleName(this.currentUser.role)})`;
+
+
+
+            if (this.currentUser.role === 'citizen') {
+
+                this.showView('view-citizen');
+
+                this.renderCitizenHistory();
+
+            } else if (this.currentUser.role === 'admin') {
+
+                this.showView('view-admin');
+
+                this.renderAdminFeed();
+
+            } else if (this.currentUser.role === 'worker') {
+
+                this.showView('view-worker');
+
+                this.renderWorkerFeed();
+
+            }
+
+        },
+
+
+
+        getRoleName: function(role) {
+
+            if (role === 'admin') return 'Администрация';
+
+            if (role === 'worker') return 'Подрядчик';
+
+            return 'Житель';
+
+        },
+
+
+
+        // --- DATA MANAGEMENT ---
+
+        getRequests: function() {
+
+            return JSON.parse(localStorage.getItem('cityflow_db') || '[]');
+
+        },
+
+
+
+        saveRequests: function(requests) {
+
+            localStorage.setItem('cityflow_db', JSON.stringify(requests));
+
+        },
+
+
+
+        // --- ACTIONS: CITIZEN ---
+
+        createRequest: async function() {
+
+            const address = document.getElementById('req-address').value;
+
+            const category = document.getElementById('req-category').value;
+
+            const desc = document.getElementById('req-desc').value;
+
+            const fileInput = document.getElementById('req-photo');
+
+
+
+            if (!address || !desc) {
+
+                alert('Заполните адрес и описание!');
+
+                return;
+
+            }
+
+
+
+            let photoBase64 = null;
+
+            if (fileInput.files[0]) {
+
+                photoBase64 = await this.toBase64(fileInput.files[0]);
+
+            }
+
+
+
+            const newReq = {
+
+                id: Date.now(),
+
+                iin: this.currentUser.iin,
+
+                author: this.currentUser.name,
+
+                address,
+
+                category,
+
+                desc,
+
+                photo: photoBase64,
+
+                status: 'new', // new, approved, rejected, completed
+
+                adminComment: '',
+
+                aiLocationData: null, // Будет заполнено AI акимата
+
+                workerData: null, // Будет заполнено AI подрядчика
+
+                date: new Date().toLocaleDateString('ru-RU')
+
+            };
+
+
+
+            const db = this.getRequests();
+
+            db.push(newReq);
+
+            this.saveRequests(db);
+
+            
+
+            alert('Ваше обращение зарегистрировано!');
+
+            document.getElementById('req-desc').value = '';
+
+            document.getElementById('req-address').value = '';
+
+            this.renderCitizenHistory();
+
+        },
+
+
+
+        renderCitizenHistory: function() {
+
+            const db = this.getRequests();
+
+            const myReqs = db.filter(r => r.iin === this.currentUser.iin).reverse();
+
+            const container = document.getElementById('citizen-history');
+
+            
+
+            if (myReqs.length === 0) {
+
+                container.innerHTML = '<p style="color:#999; text-align:center">История пуста</p>';
+
+                return;
+
+            }
+
+
+
+            container.innerHTML = myReqs.map(r => `
+
+                <div class="card">
+
+                    <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+
+                        <span class="status-badge ${this.getStatusClass(r.status)}">${this.getStatusText(r.status)}</span>
+
+                        <small style="color:#999">${r.date}</small>
+
+                    </div>
+
+                    <h3>${r.category.toUpperCase()}: ${r.address}</h3>
+
+                    <p>${r.desc}</p>
+
+                    ${r.photo ? `<img src="${r.photo}" class="req-photo">` : ''}
+
+                    
+
+                    ${r.adminComment ? `
+
+                        <div class="ai-panel" style="border-color:var(--primary-blue); background:#eef2ff;">
+
+                            <strong>Ответ Акимата:</strong><br>
+
+                            ${r.adminComment}
+
+                        </div>
+
+                    ` : ''}
+
+                </div>
+
+            `).join('');
+
+        },
+
+
+
+        // --- ACTIONS: ADMIN (AKIMAT) ---
+
+        renderAdminFeed: function() {
+
+            const db = this.getRequests();
+
+            
+
+            // Stats
+
+            document.getElementById('stat-total').innerText = db.length;
+
+            document.getElementById('stat-pending').innerText = db.filter(r => r.status === 'new').length;
+
+
+
+            const container = document.getElementById('admin-feed');
+
+            container.innerHTML = db.slice().reverse().map(r => {
+
+                // Имитация работы AI при рендере, если данных еще нет
+
+                if (!r.aiLocationData) {
+
+                    r.aiLocationData = this.aiSimulateLocation(r.address);
+
+                    // Сохраняем "вычисленные" данные, чтобы они не менялись
+
+                    this.updateRequestData(r.id, { aiLocationData: r.aiLocationData }, false); 
+
+                }
+
+
+
+                return `
+
+                <div class="card">
+
+                    <div style="display:flex; justify-content:space-between">
+
+                        <b>Заявитель: ${r.author} (ИИН: ${r.iin})</b>
+
+                        <span class="status-badge ${this.getStatusClass(r.status)}">${this.getStatusText(r.status)}</span>
+
+                    </div>
+
+                    <p style="margin:5px 0; color:#666">${r.address}</p>
+
+                    <p>${r.desc}</p>
+
+                    ${r.photo ? `<img src="${r.photo}" class="req-photo" style="height:150px; width:auto;">` : ''}
+
+
+
+                    <div class="ai-panel">
+
+                        <span class="ai-badge">GeoAI Analytics</span>
+
+                        <div class="ai-content">
+
+                            <div><span class="ai-loading"></span>Анализ локации...</div>
+
+                            <div style="margin-top:5px">
+
+                                <b>Район (AI):</b> ${r.aiLocationData.district}<br>
+
+                                <b>Координация:</b> ${r.aiLocationData.coords}<br>
+
+                                <b>Приоритет:</b> <span style="color:${r.aiLocationData.priorityColor}">${r.aiLocationData.priority}</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div style="margin-top:15px; border-top:1px solid #eee; padding-top:15px;">
+
+                        <label>Решение Акимата:</label>
+
+                        <select id="status-${r.id}" style="margin-bottom:10px">
+
+                            <option value="new" ${r.status==='new'?'selected':''}>На рассмотрении</option>
+
+                            <option value="approved" ${r.status==='approved'?'selected':''}>Одобрить (Передать подрядчику)</option>
+
+                            <option value="rejected" ${r.status==='rejected'?'selected':''}>Отказать</option>
+
+                        </select>
+
+                        <textarea id="comment-${r.id}" placeholder="Официальный ответ..." rows="2">${r.adminComment}</textarea>
+
+                        <button class="btn-primary" style="margin-top:10px" onclick="App.adminUpdate(${r.id})">Сохранить решение</button>
+
+                    </div>
+
+                </div>
+
+            `}).join('');
+
+        },
+
+
+
+        adminUpdate: function(id) {
+
+            const status = document.getElementById(`status-${id}`).value;
+
+            const comment = document.getElementById(`comment-${id}`).value;
+
+            this.updateRequestData(id, { status, adminComment: comment }, true);
+
+        },
+
+
+
+        // --- ACTIONS: WORKER (CONTRACTOR) ---
+
+        renderWorkerFeed: function() {
+
+            const db = this.getRequests();
+
+            // Подрядчик видит только ОДОБРЕННЫЕ заявки
+
+            const todoList = db.filter(r => r.status === 'approved');
+
+            const container = document.getElementById('worker-feed');
+
+
+
+            if (todoList.length === 0) {
+
+                container.innerHTML = '<p style="text-align:center">Нет активных заявок для исполнения.</p>';
+
+                return;
+
+            }
+
+
+
+            container.innerHTML = todoList.map(r => {
+
+                // Генерация AI сметы, если ее нет
+
+                if (!r.workerData) {
+
+                    r.workerData = this.aiSimulateDamage(r.category);
+
+                    this.updateRequestData(r.id, { workerData: r.workerData }, false);
+
+                }
+
+
+
+                return `
+
+                <div class="card card-worker">
+
+                    <h3>Наряд №${r.id} | ${r.category.toUpperCase()}</h3>
+
+                    <p><b>Адрес:</b> ${r.address}</p>
+
+                    <p>${r.desc}</p>
+
+                    ${r.photo ? `<img src="${r.photo}" class="req-photo">` : ''}
+
+
+
+                    <div class="ai-panel" style="border-color:#00b894; background:#f0fff4;">
+
+                        <span class="ai-badge" style="background:#00b894">AI Defectoscopy</span>
+
+                        <div class="ai-content">
+
+                            <b>Анализ повреждений (AI Vision):</b><br>
+
+                            • Необходимая техника: ${r.workerData.machinery}<br>
+
+                            • Материалы: ${r.workerData.materials}<br>
+
+                            • Прогноз бюджета: <b style="font-size:14px">${r.workerData.budget}</b><br>
+
+                            • Срок выполнения: ${r.workerData.time}
+
+                        </div>
+
+                    </div>
+
+
+
+                    <button class="btn-primary" style="background:#27ae60; margin-top:15px" onclick="alert('Бригада отправлена на объект!')">Принять в работу</button>
+
+                </div>
+
+            `}).join('');
+
+        },
+
+
+
+        // --- AI SIMULATION LOGIC ---
+
+        aiSimulateLocation: function(addr) {
+
+            // Имитация определения района города Семей по адресу
+
+            const districts = ['Центр', 'Жана-Семей', 'Восточный', 'Затон', 'Океан', 'Цементный поселок'];
+
+            const district = districts[Math.floor(Math.random() * districts.length)];
+
+            const isHighPriority = Math.random() > 0.6;
+
+            
+
+            return {
+
+                district: district,
+
+                coords: `49.${Math.floor(Math.random()*99)}° N, 80.${Math.floor(Math.random()*99)}° E`,
+
+                priority: isHighPriority ? 'ВЫСОКИЙ (Рядом соц. объекты)' : 'ОБЫЧНЫЙ',
+
+                priorityColor: isHighPriority ? '#e74c3c' : '#27ae60'
+
+            };
+
+        },
+
+
+
+        aiSimulateDamage: function(cat) {
+
+            // Имитация сметы по категории
+
+            const dict = {
+
+                'roads': { machine: 'Асфальтоукладчик, Каток', mat: 'Асфальт (4т), Битум', budget: '450 000 ₸', time: '2 дня' },
+
+                'lights': { machine: 'Автовышка', mat: 'LED лампа 100W, Кабель 50м', budget: '85 000 ₸', time: '4 часа' },
+
+                'trash': { machine: 'Мусоровоз (КАМАЗ)', mat: 'Нет', budget: '15 000 ₸', time: '1 час' },
+
+                'water': { machine: 'Экскаватор', mat: 'Труба ПВХ d200', budget: '120 000 ₸', time: '1 день' },
+
+                'other': { machine: 'Грузовик', mat: 'Брусчатка/Краска', budget: '50 000 ₸', time: '5 часов' }
+
+            };
+
+            return dict[cat] || dict['other'];
+
+        },
+
+
+
+        // --- HELPERS ---
+
+        updateRequestData: function(id, data, refresh) {
+
+            const db = this.getRequests();
+
+            const index = db.findIndex(r => r.id === id);
+
+            if (index !== -1) {
+
+                db[index] = { ...db[index], ...data };
+
+                this.saveRequests(db);
+
+                if (refresh) this.renderUI();
+
+            }
+
+        },
+
+
+
+        toBase64: file => new Promise((resolve, reject) => {
+
+            const reader = new FileReader();
+
+            reader.readAsDataURL(file);
+
+            reader.onload = () => resolve(reader.result);
+
+            reader.onerror = error => reject(error);
+
+        }),
+
+
+
+        getStatusClass: function(s) {
+
+            if (s === 'approved') return 'st-done';
+
+            if (s === 'rejected') return 'st-reject';
+
+            return 'st-process';
+
+        },
+
+
+
+        getStatusText: function(s) {
+
+            if (s === 'approved') return 'Одобрено (В работе)';
+
+            if (s === 'rejected') return 'Отклонено';
+
+            return 'На рассмотрении';
+
+        }
+
+    };
+
+
+
+    // Старт приложения при загрузке страницы
+
+    window.addEventListener('DOMContentLoaded', () => App.init());
+
+
+
+</script>
+
+</body>
+
+</html>   добавь в этот код на гихабе эти условия Новые статусы:
+
+new
+
+approved
+
+contractor_proposed
+
+proposal_accepted
+
+rejected
+
+Новые поля в заявке:
+
+contractorProposal: {
+
+    amount,
+
+    comment,
+
+    date,
+
+    status   // pending / accepted / revision
+
+}
+
+🧠 1️⃣ ОБНОВЛЯЕМ AI ЛОГИКУ СМЕТЫ
+
+
+
+Замените функцию aiSimulateDamage на более реалистичную:
+
+aiSimulateDamage: function(cat) {
+
+    const base = {
+
+        'roads': { min: 350000, max: 600000, machine: 'Асфальтоукладчик, Каток', mat: 'Асфальт, Битум' },
+
+        'lights': { min: 60000, max: 120000, machine: 'Автовышка', mat: 'LED прожектор, Кабель' },
+
+        'trash': { min: 10000, max: 25000, machine: 'Мусоровоз', mat: '—' },
+
+        'water': { min: 90000, max: 180000, machine: 'Экскаватор', mat: 'Трубы ПВХ, Муфты' },
+
+        'other': { min: 30000, max: 100000, machine: 'Грузовик', mat: 'Стройматериалы' }
+
+    };
+
+
+
+    const cfg = base[cat] || base['other'];
+
+    const budget = Math.floor(Math.random() * (cfg.max - cfg.min) + cfg.min);
+
+
+
+    return {
+
+        machinery: cfg.machine,
+
+        materials: cfg.mat,
+
+        budgetAI: budget,
+
+        formattedBudget: budget.toLocaleString('ru-RU') + ' ₸',
+
+        time: Math.floor(Math.random() * 3) + 1 + ' дня'
+
+    };
+
+},
+
+👷 2️⃣ ПОЛНОСТЬЮ НОВАЯ renderWorkerFeed()
+
+
+
+Замените существующую функцию подрядчика:
+
+renderWorkerFeed: function() {
+
+    const db = this.getRequests();
+
+    const todoList = db.filter(r => 
+
+        r.status === 'approved' || 
+
+        r.status === 'contractor_proposed'
+
+    );
+
+
+
+    const container = document.getElementById('worker-feed');
+
+
+
+    if (todoList.length === 0) {
+
+        container.innerHTML = '<p style="text-align:center">Нет активных заявок.</p>';
+
+        return;
+
+    }
+
+
+
+    container.innerHTML = todoList.map(r => {
+
+
+
+        if (!r.workerData) {
+
+            r.workerData = this.aiSimulateDamage(r.category);
+
+            this.updateRequestData(r.id, { workerData: r.workerData }, false);
+
+        }
+
+
+
+        const proposal = r.contractorProposal || {};
+
+
+
+        return `
+
+        <div class="card card-worker">
+
+            <h3>Наряд №${r.id}</h3>
+
+            <p><b>Адрес:</b> ${r.address}</p>
+
+            <p>${r.desc}</p>
+
+
+
+            <div class="ai-panel" style="border-color:#00b894; background:#f0fff4;">
+
+                <span class="ai-badge" style="background:#00b894">AI Смета</span>
+
+                <div class="ai-content">
+
+                    <b>Рекомендация системы:</b><br>
+
+                    • Техника: ${r.workerData.machinery}<br>
+
+                    • Материалы: ${r.workerData.materials}<br>
+
+                    • Прогноз бюджета: 
+
+                    <b style="font-size:15px">${r.workerData.formattedBudget}</b><br>
+
+                    • Срок: ${r.workerData.time}
+
+                </div>
+
+            </div>
+
+
+
+            <div style="margin-top:15px; border-top:1px solid #eee; padding-top:15px;">
+
+                <label>Предложить свою сумму (₸)</label>
+
+                <input type="number" id="offer-${r.id}" 
+
+                    value="${proposal.amount || r.workerData.budgetAI}" />
+
+
+
+                <label style="margin-top:10px">Комментарий подрядчика</label>
+
+                <textarea id="offer-comment-${r.id}" rows="2"
+
+                placeholder="Обоснование стоимости...">${proposal.comment || ''}</textarea>
+
+
+
+                <button class="btn-primary"
+
+                    style="margin-top:10px; background:#0984e3"
+
+                    onclick="App.submitProposal(${r.id})">
+
+                    Отправить предложение в Акимат
+
+                </button>
+
+
+
+                ${
+
+                    proposal.status === 'pending' ? 
+
+                    `<div style="margin-top:10px; color:#f39c12;">
+
+                        Ожидает рассмотрения акиматом
+
+                    </div>` : ''
+
+                }
+
+
+
+                ${
+
+                    proposal.status === 'accepted' ?
+
+                    `<div style="margin-top:10px; color:#27ae60;">
+
+                        Предложение принято. Можно приступать к работе.
+
+                    </div>` : ''
+
+                }
+
+            </div>
+
+        </div>
+
+        `;
+
+    }).join('');
+
+},
+
+📨 3️⃣ ДОБАВЛЯЕМ submitProposal()
+
+
+
+Добавьте новую функцию:
+
+submitProposal: function(id) {
+
+    const amount = document.getElementById(`offer-${id}`).value;
+
+    const comment = document.getElementById(`offer-comment-${id}`).value;
+
+
+
+    if (!amount) {
+
+        alert('Введите сумму!');
+
+        return;
+
+    }
+
+
+
+    const proposalData = {
+
+        amount: parseInt(amount),
+
+        comment: comment,
+
+        date: new Date().toLocaleString('ru-RU'),
+
+        status: 'pending'
+
+    };
+
+
+
+    this.updateRequestData(id, {
+
+        contractorProposal: proposalData,
+
+        status: 'contractor_proposed'
+
+    }, true);
+
+
+
+    alert('Предложение отправлено в Акимат.');
+
+},
+
+🏛 4️⃣ ДОБАВЛЯЕМ ОТОБРАЖЕНИЕ В АДМИН-ПАНЕЛИ
+
+
+
+Внутри renderAdminFeed() добавьте после AI панели:
+
+${r.contractorProposal ? `
+
+<div class="ai-panel" style="border-color:#0984e3; background:#eef6ff;">
+
+    <span class="ai-badge" style="background:#0984e3">Предложение подрядчика</span>
+
+    <div class="ai-content">
+
+        <b>Сумма:</b> ${r.contractorProposal.amount.toLocaleString('ru-RU')} ₸<br>
+
+        <b>Комментарий:</b> ${r.contractorProposal.comment}<br>
+
+        <small>Дата: ${r.contractorProposal.date}</small>
+
+
+
+        ${
+
+            r.contractorProposal.status === 'pending' ?
+
+            `<div style="margin-top:10px;">
+
+                <button class="btn-primary"
+
+                    style="background:#27ae60"
+
+                    onclick="App.acceptProposal(${r.id})">
+
+                    Принять
+
+                </button>
+
+                <button class="btn-primary"
+
+                    style="background:#e74c3c"
+
+                    onclick="App.revisionProposal(${r.id})">
+
+                    На доработку
+
+                </button>
+
+            </div>`
+
+            : ''
+
+        }
+
+    </div>
+
+</div>
+
+` : ''}
+
+🏛 5️⃣ ФУНКЦИИ ДЛЯ АДМИНА
+
+
+
+Добавьте:
+
+acceptProposal: function(id) {
+
+    this.updateRequestData(id, {
+
+        status: 'proposal_accepted',
+
+        contractorProposal: {
+
+            ...this.getRequests().find(r => r.id === id).contractorProposal,
+
+            status: 'accepted'
+
+        }
+
+    }, true);
+
+},
+
+
+
+revisionProposal: function(id) {
+
+    this.updateRequestData(id, {
+
+        status: 'approved',
+
+        contractorProposal: {
+
+            ...this.getRequests().find(r => r.id === id).contractorProposal,
+
+            status: 'revision'
+
+        }
+
+    }, true);
+
+},
